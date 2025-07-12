@@ -1,0 +1,1551 @@
+<!DOCTYPE html>
+<html lang="en">
+<script src="scroll-products.js" defer></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet">
+
+  <title>FALCON</title>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    a:hover {
+      color: #F77F00;
+    }
+
+    .horizontal-scroll-container {
+      overflow: hidden;
+      position: relative;
+    }
+
+    .horizontal-scroll {
+      display: flex;
+      gap: 20px;
+      padding-bottom: 10px;
+      width: max-content;
+      transition: transform 0.5s ease;
+    }
+
+
+    /* Intro Video Styles */
+    #intro-video-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: black;
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #intro-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+
+    /* Comapnies Card */
+    .customer-card {
+      flex: 0 0 auto;
+      background-color: black;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
+      width: 280px;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .customer-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: fill;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<body style="font-family: Arial, sans-serif; margin: 0; padding: 0; line-height: 1.6;">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- Intro Video -->
+  <div id="intro-video-container">
+    <video id="intro-video" autoplay muted>
+      <source src="intro2.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+  <script>
+    const video = document.getElementById('intro-video');
+    const container = document.getElementById('intro-video-container');
+
+    // Remove the video container when video ends
+    video.addEventListener('ended', () => {
+      container.style.display = 'none';
+    });
+
+    // Optional fallback timeout in case video doesn't end (e.g. short clip, etc.)
+    setTimeout(() => {
+      container.style.display = 'none';
+    }, 8000); // 8 seconds max
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ <!-- Header -->
+<style>
+  nav a {
+    color: white;
+    text-decoration: none;
+    margin-right: 20px;
+    opacity: 0.6;
+    position: relative;
+    transition: opacity 0.2s ease;
+  }
+
+  nav a:hover {
+    opacity: 1;
+    color: rgb(0, 0, 0);
+  }
+
+  nav a::after {
+    content: '';
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background-color: #000000;
+    /* Underline color */
+    transition: width 0.3s ease;
+  }
+
+  nav a:hover::after {
+    width: 100%;
+  }
+
+  /* Header styling */
+  header {
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    padding: 0px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+
+  .header-container {
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    flex-wrap: wrap;
+  }
+
+  .header-container h1 {
+    font-size: 40px;
+    color: #000000;
+    font-weight: 900;
+    font-family: 'Segoe UI Black', 'Arial Black', sans-serif;
+  }
+
+  nav {
+    margin-top: 10px;
+  }
+
+  nav a {
+    color: black;
+    margin-right: 20px;
+    font-family: 'Helvetica', sans-serif;
+    font-weight: 300;
+  }
+
+  /* Mobile Styling */
+  @media (max-width: 768px) {
+    .header-container {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    nav {
+      width: 100%;
+      display: none;
+      flex-direction: column;
+      margin-top: 10px;
+    }
+
+    nav a {
+      margin: 10px 0;
+      text-align: left;
+    }
+
+    nav.open {
+      display: flex;
+    }
+
+    .hamburger {
+      display: block;
+      cursor: pointer;
+      font-size: 30px;
+    }
+  }
+
+  /* Hamburger Menu */
+  .hamburger {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    .hamburger {
+      display: block;
+    }
+  }
+</style>
+
+<!-- Header -->
+<header>
+  <div class="header-container">
+    <div>
+      <h1>FALCON</h1>
+    </div>
+    <!-- Hamburger Icon -->
+    <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
+    <nav id="nav-links">
+      <a href="#home">HOME</a>
+      <a href="#about">ABOUT</a>
+      <a href="#team">OUR TEAM</a>
+      <a href="#products">PRODUCTS</a>
+      <a href="#inquiry">INQUIRY</a>
+      <a href="#customers">CUSTOMERS</a>
+      <a href="#careerinquiry">CAREERS</a>
+      <a href="#contact">CONTACT</a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  function toggleMenu() {
+    const nav = document.getElementById("nav-links");
+    nav.classList.toggle("open");
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Home Section -->
+<section id="home" style="position: relative; min-height: 600px; display: flex; align-items: center; justify-content: center; padding: 40px 20px; text-align: center; overflow: hidden;">
+  <!-- Background Video -->
+  <video autoplay muted loop playsinline style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2;">
+    <source src="bgvideo2.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- Dark Overlay -->
+  <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.4); z-index: -1;"></div>
+
+  <!-- Content -->
+  <div>
+    
+    <h1 style="
+  white-space: nowrap;
+  font-family: 'Oswald', sans-serif;
+  color: #ffffff;
+  font-size: 10vw;
+  font-weight: 700;
+  margin: 0;
+  text-shadow: 
+    -0.5px -0.5px 0 #000000, 
+     0.5px -0.5px 0 #000000, 
+    -0.5px  0.5px 0 #000000, 
+     0.5px  0.5px 0 #000000;">
+  The Sky Is The Limit.
+</h1>
+
+    
+  </div>
+</section>
+
+
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- About Section -->
+<section id="about" style="padding: 60px 20px; background-color: #f0f0f0;">
+  <div style="max-width: 1000px; margin: auto; display: flex; align-items: center; flex-wrap: wrap;">
+
+    <!-- Image Column (Left - 50%) -->
+    <div class="about-image" style="flex: 1; padding: 10px;">
+      <img src="LtColMukhtarSingh.jpeg" style="width: 80%; height: auto; border-radius: 10px; object-fit: cover;" />
+    </div>
+
+    <!-- Text Column (Right - 50%) -->
+    <div style="flex: 1; padding: 10px; text-align: right;">
+      <h2 style="font-size: 30px; text-align: right; color: #000000; font-weight: 900; font-family: 'Segoe UI Black', 'Arial Black', sans-serif; margin-bottom: 40px;">
+        About Us
+      </h2>
+
+      <p style="margin-top: 20px; color: #000000; font-family: 'Helvetica', sans-serif; font-size: 18px; font-weight: 300; line-height: 1.6;">
+        Falcon Industrial Enterprises is a partnership firm found in 1980 by Lt.Col.Mukhtar Singh Khaira, with a vision to manufacture quality components for vehicles & tractors industry.
+      </p>
+      <p style="margin-top: 20px; color: #000000; font-family: 'Helvetica', sans-serif; font-size: 18px; font-weight: 300; line-height: 1.6;">
+        During these years we have acquired an excellent track record in terms of Quality, Schedule Adherence & Technology Upgradation. Customer satisfaction in terms of quality & timely supplies always remained on top priority in our working environment.
+      </p>
+      <p style="margin-top: 20px; color: #000000; font-family: 'Helvetica', sans-serif; font-size: 18px; font-weight: 300; line-height: 1.6;">
+        We specialize in the manufacturing of a wide range of high-quality components, including Shafts, Clutch Pedal Mounting Brackets, Forks, Greasing Tubes, Clevises, Rods, Bush Assemblies and all types of precision-turned shafts.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Add the CSS for responsiveness -->
+<style>
+  @media (max-width: 768px) {
+    /* On smaller screens, hide the image */
+    .about-image {
+      display: none;
+    }
+    
+    /* Text part should take the full width */
+    #about > div {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    #about h2 {
+      text-align: left;
+      font-size: 24px;
+    }
+
+    #about p {
+      font-size: 16px;
+    }
+  }
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section id="team" style="padding: 60px 20px; background-color: #ffffff;">
+  <div style="max-width: 1000px; margin: auto;">
+    <h2 style="text-align: center; font-size: 30px; color: #000000; font-weight: 900; font-family: 'Segoe UI Black', 'Arial Black', sans-serif; margin-bottom: 40px;">
+      Meet Our Team
+    </h2>
+
+    <!-- Team Member List -->
+    <div style="display: flex; flex-direction: column; gap: 30px;">
+      <!-- Member Template -->
+      <div class="team-card">
+        <div class="fading-overlay right"></div>
+        <div class="card-content">
+          <div class="text-block">
+            <h3 class="teammembername">NAVTEJ SINGH</h3>
+            <p class="teammemberpartner">Managing Partner <span style="font-weight: 300;">(System Co-ordinator)</span></p>
+            <p class="teammemberdescription">Falcon Industrial Enterprises fosters innovation, collaboration, and growth. We prioritize employee well-being, promoting a culture of inclusivity, passion, and excellence. Our people drive success, making every day meaningful and inspiring.</p>
+          </div>
+          <img class="teamimage" src="PartnerNavtejSingh.jpg" alt="Navtej Singh">
+        </div>
+      </div>
+
+      <div class="team-card">
+        <div class="fading-overlay left"></div>
+        <div class="card-content">
+          <img class="teamimage" src="PartnerPritpalSingh.jpeg" alt="Pritpal Singh">
+          <div class="text-block">
+            <h3 class="teammembername">PRITPAL SINGH</h3>
+            <p class="teammemberpartner">Partner</p>
+            <p class="teammemberdescription">At Falcon Industrial Enterprises, we blend creativity and teamwork, empowering employees to innovate and thrive. Our focus is on personal growth, well-being, and achieving excellence together in a supportive environment.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="team-card">
+        <div class="fading-overlay right"></div>
+        <div class="card-content">
+          <div class="text-block">
+            <h3 class="teammembername">GURCHAIN SINGH</h3>
+            <p class="teammemberpartner">Partner</p>
+            <p class="teammemberdescription">Falcon Industrial Enterprises is committed to nurturing talent, fostering a positive work culture, and inspiring individuals to reach their full potential. We aim to create an environment where every day feels rewarding.</p>
+          </div>
+          <img class="teamimage" src="PartnerGurchainKhaira.jpeg" alt="Gurchain Singh">
+        </div>
+      </div>
+
+      <div class="team-card">
+        <div class="fading-overlay left"></div>
+        <div class="card-content">
+          <img class="teamimage" src="PartnerHeithin.jpeg" alt="Hethinder Singh">
+          <div class="text-block">
+            <h3 class="teammembername">HEITHINDER SINGH</h3>
+            <p class="teammemberpartner">Partner</p>
+            <p class="teammemberdescription">At Falcon Industrial Enterprises, we believe in the power of diverse ideas and strong collaboration. Our mission is to ensure employees feel valued, happy, and motivated, driving success and fulfillment in all endeavors.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+/* Shared styles */
+.team-card {
+  position: relative;
+  padding: 10px;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.fading-overlay {
+  position: absolute;
+  inset: 0;
+  border-radius: 15px;
+  filter: blur(8px);
+  z-index: 0;
+}
+
+.fading-overlay.right {
+  background: linear-gradient(to right, rgba(255, 145, 1, 0) 0%, rgba(0, 0, 0, 0.3) 100%);
+}
+
+.fading-overlay.left {
+  background: linear-gradient(to left, rgba(255, 145, 1, 0) 0%, rgba(0, 0, 0, 0.3) 100%);
+}
+
+.card-content {
+  position: relative;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+  z-index: 1;
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.teamimage {
+  border-radius: 10px;
+  object-fit: cover;
+  display: block;
+}
+
+/* Desktop view */
+@media (min-width: 768px) {
+  .card-content {
+    flex-wrap: nowrap;
+  }
+
+  .teamimage {
+    width: 300px;
+    height: 250px;
+  }
+
+  .teammembername {
+    font-size: xx-large;
+    font-family: 'Helvetica', sans-serif;
+    font-weight: lighter;
+    margin: 0;
+    text-align: left;
+  }
+
+  .teammemberpartner {
+    font-size: 18px;
+    color: #555;
+    margin: 5px 0;
+    font-weight: bold;
+    font-family: 'Helvetica', sans-serif;
+    text-align: left;
+  }
+
+  .teammemberdescription {
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 1.6;
+    color: #555;
+    font-family: 'Helvetica', sans-serif;
+    text-align: left;
+  }
+
+  .text-block {
+    width: 100%;
+  }
+}
+
+/* Mobile view */
+@media (max-width: 768px) {
+  .card-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .teamimage {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    margin-top: 15px;
+  }
+
+  .teammembername {
+    font-size: 1.75rem;
+    font-weight: lighter;
+    margin: 0;
+  }
+
+  .teammemberpartner {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin: 5px 0;
+    white-space: nowrap;
+  }
+
+  .teammemberdescription {
+    font-size: 1rem;
+    font-weight: 300;
+    margin-top: 10px;
+  }
+
+  .text-block {
+    width: 100%;
+  }
+}
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- Gallery -->
+  <!-- Continuous Scrolling Background Section -->
+  <section style="position: relative; height: 400px; overflow: hidden; background-color: black;">
+
+
+
+
+    <!-- Scrolling Images Wrapper -->
+    <div style="display: flex; position: absolute; top: 0; left: 0; width: 200%; height: 100%;
+              animation: scrollImages 30s linear infinite;">
+      <img src="factoryphoto6.jpeg" style="height: 100%; object-fit: cover;" />
+      <img src="factoryphoto1.jpeg" style="height: 100%; object-fit: cover;" />
+      <img src="factoryphoto5.jpeg" style="height: 100%; object-fit: cover;" />
+      <img src="factoryphoto3.jpeg" style="height: 100%; object-fit: cover;" />
+      <img src="factoryphoto2.jpg" style="height: 100%; object-fit: cover;" />
+      <img src="factoryphoto5.jpeg" style="height: 100%; object-fit: cover;" />
+      <img src="factoryphoto6.jpeg" style="height: 100%; object-fit: cover;" />
+      <img src="factoryphoto1.jpeg" style="height: 100%; object-fit: cover;" />
+      <img src="factoryphoto5.jpeg" style="height: 100%; object-fit: cover;" />
+      <img src="factoryphoto3.jpeg" style="height: 100%; object-fit: cover;" />
+      <img src="factoryphoto2.jpg" style="height: 100%; object-fit: cover;" />
+      <img src="factoryphoto4.jpeg" style="height: 100%; object-fit: cover;" />
+      <img src="factoryphoto6.jpeg" style="height: 100%; object-fit: cover;" />
+      <img src="factoryphoto1.jpeg" style="height: 100%; object-fit: cover;" />
+      <img src="factoryphoto5.jpeg" style="height: 100%; object-fit: cover;" />
+    </div>
+
+    <style>
+      @keyframes scrollImages {
+        0% {
+          transform: translateX(0);
+        }
+
+        100% {
+          transform: translateX(-50%);
+        }
+      }
+    </style>
+  </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!DOCTYPE html>
+  <html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        margin: 0;
+        font-family: 'Helvetica', sans-serif;
+        background-color: #f0f0f0;
+      }
+
+      section#products {
+        padding: 60px 20px;
+      }
+
+      h2 {
+        text-align: center;
+        font-size: 40px;
+        color: #000;
+        font-weight: 900;
+        font-family: 'Segoe UI Black', sans-serif;
+        margin-bottom: 50px;
+      }
+
+      .slider-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        position: relative;
+      }
+
+      .product-wrapper {
+        display: flex;
+        gap: 30px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        padding-bottom: 20px;
+        scrollbar-width: none;
+        /* Firefox */
+      }
+
+      .product-wrapper::-webkit-scrollbar {
+        display: none;
+        /* Chrome, Safari, Edge */
+      }
+
+      .product-card {
+        flex: 0 0 auto;
+        scroll-snap-align: start;
+        width: 350px;
+        background: #fff;
+        border-radius: 8px;
+        padding: 15px;
+        text-align: left;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .product-card img {
+        width: 100%;
+        height: 300px;
+        object-fit: contain;
+        border-radius: 6px;
+      }
+
+      .product-card h3 {
+        margin: 0;
+        font-size: 20px;
+        font-weight: lighter;
+      }
+
+      .product-card p {
+        font-family: 'Helvetica', sans-serif;
+        font-size: 18px;
+        font-weight: 300;
+        line-height: 1.6;
+        color: #555;
+      }
+
+
+      .progress-bar-container {
+        width: 100%;
+        height: 6px;
+        background-color: #8e8e8e;
+        border-radius: 3px;
+        overflow: hidden;
+        margin-top: 20px;
+      }
+
+      .progress-bar {
+        height: 100%;
+        width: 0%;
+        background-color: #000000;
+        transition: width 0.2s ease;
+      }
+
+      @media (max-width: 600px) {
+        .product-card {
+          width: 270px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <section id="products">
+      <h2
+        style="font-size: 30px; text-align: center; color: #000000; font-weight: 900; font-family: 'Segoe UI Black', 'Arial Black', sans-serif; margin-bottom: 8px;">
+        Our Product Catalogue</h2>
+
+      <div class="slider-container">
+        <div class="product-wrapper" id="productWrapper">
+          <!-- Cards will be inserted dynamically -->
+        </div>
+        <div class="progress-bar-container">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      const products = [
+        { img: "cashaft.png", title: "CLUTCH ACTUATOR SHAFT", desc: "Clutch Actuator Shaft assembly manufactured for Swaraj 735, 855." },
+        { img: "bushprong.png", title: "BUSH PRONG", desc: "For Cutter Bar Assembly of Harvester Combine" },
+        { img: "bpshaft.png", title: "BRAKE PEDAL SHAFT", desc: "Brake Pedal Shaft assembly for Swaraj" },
+        { img: "clevis.png", title: "CLEVIS", desc: "Big & Small Clevis" },
+        { img: "axlbush.png", title: "AUXILIARY BUSH", desc: "Auxiliary Bush for DCM (Foundry) Ropar" },
+        { img: "castingitems.png", title: "CASTING COMPONENTS", desc: "Lift Arm, Steering Arm, Mahindra Hub" },
+        { img: "cltpdlmtgbrkt.png", title: "CLUTCH PDL MOUNTING BRACKET", desc: "Clutch Pedal Mounting Bracket for Swaraj Tractor." },
+        { img: "rockerarm.png", title: "ROCKER ARM", desc: "Fabrication & Machining Component for Harvester Combine." },
+        { img: "shifter.png", title: "SHIFTER", desc: "Fabrication & Machining Component for Harvester Combine." },
+        { img: "crank.png", title: "DRAFT & POSITION CRANK", desc: "Draft Crank, Position Crank for Tractor." }
+      ];
+
+      const wrapper = document.getElementById("productWrapper");
+      const progressBar = document.getElementById("progressBar");
+
+      // Render all cards
+      function renderProducts() {
+        products.forEach(product => {
+          const card = document.createElement("div");
+          card.className = "product-card";
+          card.innerHTML = `
+          <img src="${product.img}" alt="${product.title}">
+          <h3>${product.title}</h3>
+          <p>${product.desc}</p>
+        `;
+          wrapper.appendChild(card);
+        });
+      }
+
+      // Update progress bar on scroll
+      wrapper.addEventListener("scroll", () => {
+        const scrollLeft = wrapper.scrollLeft;
+        const scrollWidth = wrapper.scrollWidth - wrapper.clientWidth;
+        const scrollPercent = (scrollLeft / scrollWidth) * 100;
+        progressBar.style.width = scrollPercent + "%";
+      });
+
+      renderProducts();
+    </script>
+
+  </body>
+
+  </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- Inquiry Form Section -->
+  <section id="inquiry" style="padding: 60px 20px; background-color: #ffffff;">
+    <div style="max-width: 600px; margin: auto;">
+      <h2
+        style="font-size: 30px; text-align: left; color: #000000; font-weight: 900; font-family: 'Segoe UI Black', 'Arial Black', sans-serif; margin-bottom: 8px;">
+        Send an Inquiry</h2>
+
+
+      <p
+        style="font-size: 16px; color: #555; margin-top: 0; font-family: 'Helvetica', sans-serif; font-size: 18px; font-weight: 300; line-height: 1.6;">
+        Fill out the form below to discuss your project needs & we'll get back to you shortly.</p>
+
+
+      <form action="https://formsubmit.co/chhinaudayveer31@gmail.com" method="POST" enctype="multipart/form-data"
+        style="display: flex; flex-direction: column; gap: 15px; margin-top: 30px;">
+        <input type="text" name="Name" placeholder="Your Name" required
+          style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 4px;" />
+        <input type="tel" name="Phone Number" placeholder="Your Phone Number" required
+          style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 4px;" />
+        <input type="text" name="Product Name" placeholder="Product Name" required
+          style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 4px;" />
+        <textarea name="Product Description" placeholder="Describe the product" rows="4" required
+          style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 4px;"></textarea>
+
+        <input type="file" name="attachment" accept="image/*,.pdf" id="file-upload" required style="display: none;"
+          multiple>
+        <label for="file-upload"
+          style="padding: 12px; background-color: #f0f0f0; color: rgb(0, 0, 0); border: 2px solid #000000; border-radius: 3px; text-align: center; font-size: 16px; cursor: pointer;">
+          Upload a Photo or PDF Document
+        </label>
+
+
+        <div id="file-feedback"
+          style="font-size: 14px; color: rgb(0, 0, 0); display: none; align-items: center; gap: 8px;">
+          <span id="file-name">File(s) uploaded</span>
+        </div>
+
+        <!-- Hidden inputs for FormSubmit -->
+        <input type="hidden" name="_subject" value="New Part Inquiry from Website">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="http://127.0.0.1:5500/home.html">
+        <!-- Redirect URL after submission -->
+
+        <button type="submit"
+          style="padding: 12px; background-color: #000000; color: rgb(255, 255, 255); border-radius: 4px; border: 2px solid #000000; font-size: 18px; font-weight:normal; cursor: pointer; font-family: 'Segoe UI Black', 'Arial Black', sans-serif;">
+          SUBMIT
+        </button>
+
+      </form>
+
+      <!-- Optional success message, but now FormSubmit handles it -->
+      <p id="success-message"
+        style="display: none; font-size: 16px; color: green; text-align: center; margin-top: 20px; font-weight: bold;">
+        Form submitted successfully! Redirecting...
+      </p>
+
+      <!-- JS for file upload preview only -->
+      <script>
+        const fileUpload = document.getElementById('file-upload');
+        const feedback = document.getElementById('file-feedback');
+        const fileNameText = document.getElementById('file-name');
+
+        fileUpload.addEventListener('change', () => {
+          if (fileUpload.files.length > 0) {
+            feedback.style.display = 'flex';
+            const names = Array.from(fileUpload.files).map(f => f.name).join(', ');
+            fileNameText.textContent = 'File Uploaded: ' + names;
+          }
+        });
+      </script>
+    </div>
+  </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- Customer Catalogue Section -->
+  <section id="customers" style="padding: 60px 20px; background-color: #e6e6e6;">
+    <div style="max-width: 100%; margin: auto;">
+      <h2
+        style="text-align: center; font-size: 30px; color: #000000; font-weight: 900; font-family: 'Segoe UI Black', 'Arial Black', sans-serif; margin-bottom: 40px;">
+        Our Customers</h2>
+
+
+      <div class="horizontal-scroll-container" style="overflow: hidden; position: relative;">
+        <div class="horizontal-scroll" id="autoScroll"
+          style="display: inline-flex; gap: 20px; animation: scrollLeft 20s linear infinite;">
+
+          <!-- Cards (Updated Borders) -->
+          <div class="customer-card" style="display: inline-block; flex: 0 0 auto;">
+            <img src="customerswaraj.jpeg" alt="Automotive Components"
+              style="border: 5px solid #000000; border-radius: 8px;">
+          </div>
+
+          <div class="customer-card" style="display: inline-block; flex: 0 0 auto;">
+            <img src="customermahindra.jpeg" alt="Automotive Components"
+              style="border: 5px solid #000000; border-radius: 8px;">
+          </div>
+
+          <div class="customer-card" style="display: inline-block; flex: 0 0 auto;">
+            <img src="customerace.jpeg" alt="Automotive Components"
+              style="border: 5px solid #000000; border-radius: 8px;">
+          </div>
+
+          <div class="customer-card" style="display: inline-block; flex: 0 0 auto;">
+            <img src="customerindofarm.jpeg" alt="Automotive Components"
+              style="border: 5px solid #000000; border-radius: 8px;">
+          </div>
+
+          <div class="customer-card" style="display: inline-block; flex: 0 0 auto;">
+            <img src="customerdcmropar.jpeg" alt="Automotive Components"
+              style="border: 5px solid #000000; border-radius: 8px;">
+          </div>
+
+          <div class="customer-card" style="display: inline-block; flex: 0 0 auto;">
+            <img src="customerswaraj.jpeg" alt="Automotive Components"
+              style="border: 5px solid #000000; border-radius: 8px;">
+          </div>
+
+          <div class="customer-card" style="display: inline-block; flex: 0 0 auto;">
+            <img src="customermahindra.jpeg" alt="Automotive Components"
+              style="border: 5px solid #000000; border-radius: 8px;">
+          </div>
+
+          <div class="customer-card" style="display: inline-block; flex: 0 0 auto;">
+            <img src="customerace.jpeg" alt="Automotive Components"
+              style="border: 5px solid #000000; border-radius: 8px;">
+          </div>
+
+          <div class="customer-card" style="display: inline-block; flex: 0 0 auto;">
+            <img src="customerindofarm.jpeg" alt="Automotive Components"
+              style="border: 5px solid #000000; border-radius: 8px;">
+          </div>
+
+          <div class="customer-card" style="display: inline-block; flex: 0 0 auto;">
+            <img src="customerdcmropar.jpeg" alt="Automotive Components"
+              style="border: 5px solid #000000; border-radius: 8px;">
+          </div>
+
+          <!-- Duplicate Cards (Second set for continuous effect) -->
+          <div class="customer-card" style="display: inline-block; flex: 0 0 auto;">
+            <img src="customerswaraj.jpeg" alt="Automotive Components"
+              style="border: 5px solid #000000; border-radius: 8px;">
+          </div>
+
+          <div class="customer-card" style="display: inline-block; flex: 0 0 auto;">
+            <img src="customermahindra.jpeg" alt="Automotive Components"
+              style="border: 5px solid #000000; border-radius: 8px;">
+          </div>
+
+          <div class="customer-card" style="display: inline-block; flex: 0 0 auto;">
+            <img src="customerace.jpeg" alt="Automotive Components"
+              style="border: 5px solid #000000; border-radius: 8px;">
+          </div>
+
+          <div class="customer-card" style="display: inline-block; flex: 0 0 auto;">
+            <img src="customerindofarm.jpeg" alt="Automotive Components"
+              style="border: 5px solid #000000; border-radius: 8px;">
+          </div>
+
+          <div class="customer-card" style="display: inline-block; flex: 0 0 auto;">
+            <img src="customerdcmropar.jpeg" alt="Automotive Components"
+              style="border: 5px solid #000000; border-radius: 8px;">
+          </div>
+
+          <div class="customer-card" style="display: inline-block; flex: 0 0 auto;">
+            <img src="customerswaraj.jpeg" alt="Automotive Components"
+              style="border: 5px solid #000000; border-radius: 8px;">
+          </div>
+
+          <div class="customer-card" style="display: inline-block; flex: 0 0 auto;">
+            <img src="customermahindra.jpeg" alt="Automotive Components"
+              style="border: 5px solid #000000; border-radius: 8px;">
+          </div>
+
+          <div class="customer-card" style="display: inline-block; flex: 0 0 auto;">
+            <img src="customerace.jpeg" alt="Automotive Components"
+              style="border: 5px solid #000000; border-radius: 8px;">
+          </div>
+
+          <div class="customer-card" style="display: inline-block; flex: 0 0 auto;">
+            <img src="customerindofarm.jpeg" alt="Automotive Components"
+              style="border: 5px solid #000000; border-radius: 8px;">
+          </div>
+
+          <div class="customer-card" style="display: inline-block; flex: 0 0 auto;">
+            <img src="customerdcmropar.jpeg" alt="Automotive Components"
+              style="border: 5px solid #000000; border-radius: 8px;">
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    @keyframes scrollLeft {
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+  </style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Career Inquiry Form Section -->
+<section id="careerinquiry" style="padding: 60px 20px; background-color: #ffffff;">
+  <div style="max-width: 600px; margin: auto;">
+    <h2
+      style="font-size: 30px; text-align: left; color: #000000; font-weight: 900; font-family: 'Segoe UI Black', 'Arial Black', sans-serif; margin-bottom: 8px;">
+      Join Us, We’re Hiring!</h2>
+
+    <p
+      style="font-size: 16px; color: #555; margin-top: 0; font-family: 'Helvetica', sans-serif; font-size: 18px; font-weight: 300; line-height: 1.6;">
+      Fill out the form below to apply for a position at our company & we’ll get back to you shortly.</p>
+
+    <form action="https://formsubmit.co/chhinaudayveer31@gmail.com" method="POST" enctype="multipart/form-data"
+      style="display: flex; flex-direction: column; gap: 15px; margin-top: 30px;">
+      
+      <input type="text" name="Name" placeholder="Your Name" required
+        style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 4px;" />
+      
+      <input type="email" name="Email" placeholder="Your Email" required
+        style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 4px;" />
+      
+      <input type="tel" name="Phone Number" placeholder="Your Phone Number" required
+        style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 4px;" />
+
+      <input type="file" name="resume" accept=".pdf,.doc,.docx" id="resume-upload" required style="display: none;">
+      <label for="resume-upload"
+        style="padding: 12px; background-color: #f0f0f0; color: rgb(0, 0, 0); border: 2px solid #000000; border-radius: 3px; text-align: center; font-size: 16px; cursor: pointer;">
+        Upload Your Resume (PDF, DOC, DOCX)
+      </label>
+
+      <div id="resume-feedback"
+        style="font-size: 14px; color: rgb(0, 0, 0); display: none; align-items: center; gap: 8px;">
+        <span id="resume-name">Resume uploaded</span>
+      </div>
+
+      <!-- Hidden inputs for FormSubmit -->
+      <input type="hidden" name="_subject" value="New Career Inquiry from Website">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="http://127.0.0.1:5500/home.html">
+
+      <button type="submit"
+        style="padding: 12px; background-color: #000000; color: rgb(255, 255, 255); border-radius: 4px; border: 2px solid #000000; font-size: 18px; font-weight:normal; cursor: pointer; font-family: 'Segoe UI Black', 'Arial Black', sans-serif;">
+        SUBMIT APPLICATION
+      </button>
+    </form>
+
+    <!-- Optional success message -->
+    <p id="success-message"
+      style="display: none; font-size: 16px; color: green; text-align: center; margin-top: 20px; font-weight: bold;">
+      Application submitted successfully! We will be in touch soon. Redirecting...
+    </p>
+
+    <!-- JS for resume upload preview -->
+    <script>
+      const resumeUpload = document.getElementById('resume-upload');
+      const resumeFeedback = document.getElementById('resume-feedback');
+      const resumeNameText = document.getElementById('resume-name');
+
+      resumeUpload.addEventListener('change', () => {
+        if (resumeUpload.files.length > 0) {
+          resumeFeedback.style.display = 'flex';
+          const names = Array.from(resumeUpload.files).map(f => f.name).join(', ');
+          resumeNameText.textContent = 'Resume Uploaded: ' + names;
+        }
+      });
+    </script>
+  </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- Contact Section -->
+  <head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  </head>
+  
+  <section id="contact" style="background-color: #f0f0f0; padding: 60px 20px; text-align: center;">
+    <h2 style="text-align: center; font-size: 30px; color: #000000; font-weight: 900; font-family: 'Segoe UI Black', 'Arial Black', sans-serif; margin-bottom: 0px;">Contact Us</h2>
+      <p style="max-width: 600px; margin: 20px auto; color: #969595; font-family: 'Helvetica', sans-serif; font-size: 18px; font-weight: 300; line-height: 1.6;">
+        Get in touch with our team to discuss your project needs.
+      </p>
+      <p style="font-family: 'Helvetica', sans-serif; font-size: 18px; font-weight: 300;">
+        <i class="fas fa-map-marker-alt" style="color: #000000;"></i> </br>E 75, Industrial Area, Phase 8, Sector 72, Mohali, Punjab - 160059, India
+      </p>
+      <p style="font-family: 'Helvetica', sans-serif; font-size: 18px; font-weight: 300;">
+        <i class="fas fa-phone-alt" style="color: #000000; transform: scaleX(-1);"></i> </br>
+        <a href="tel:+919876543210" style="color: #000000; text-decoration: none;">+91-9814104432</a>
+      </p>
+      <p style="font-family: 'Helvetica', sans-serif; font-size: 18px; font-weight: 300;">
+        <i class="fas fa-envelope" style="color: #000000;"></i> </br>
+        <a href="mailto:falconnavtej@yahoo.co.in" style="color: #000000; text-decoration: none;">falconnavtej@yahoo.co.in</a>
+      </p>
+      
+
+  </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- Footer -->
+  <footer style="background-color: #000000; color: rgb(187, 187, 187); padding: 20px 10px; text-align: center;">
+    <p>Copyright &copy; 2025 FALCON. All Rights Reserved.</p>
+  </footer>
+
+</body>
+
+</html>
